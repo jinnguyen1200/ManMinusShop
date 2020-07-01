@@ -16,5 +16,8 @@ namespace ManMinusData.Entities.Business
         public OrderStatusEnum Status { get; set; }
         public PaymentMethodEnum PaymentMethod { get; set; }
         public string PaymentMethodDetail { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public Cart Cart { get; set; }
     }
 }

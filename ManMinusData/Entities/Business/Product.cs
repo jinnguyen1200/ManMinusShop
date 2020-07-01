@@ -13,5 +13,7 @@ namespace ManMinusData.Entities.Business
         public decimal OriginalPrice { get; set; }
         public string Details { get; set; }
         public bool IsInStock { get; set; }
+
+        public Category Category { get; set; }
     }
 }
