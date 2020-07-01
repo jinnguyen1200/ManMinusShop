@@ -68,6 +68,22 @@ namespace ManMinusData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOnUtc = new DateTime(2020, 7, 1, 3, 0, 16, 920, DateTimeKind.Utc).AddTicks(5905),
+                            Description = "Ao Flannel",
+                            Name = "Flannel"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOnUtc = new DateTime(2020, 7, 1, 3, 0, 16, 920, DateTimeKind.Utc).AddTicks(7403),
+                            Description = "Ao khoac gio",
+                            Name = "Ao khoac"
+                        });
                 });
 
             modelBuilder.Entity("ManMinusData.Entities.Business.Order", b =>

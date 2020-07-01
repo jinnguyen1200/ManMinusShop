@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ManMinusData.Configuration;
 using ManMinusData.Entities.Business;
+using ManMinusData.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ManMinusData.EF
@@ -15,6 +16,7 @@ namespace ManMinusData.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Configure using Fluent API
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
@@ -22,6 +24,9 @@ namespace ManMinusData.EF
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
+
+            //Data Seeding
+            modelBuilder.Seed();
 
             base.OnModelCreating(modelBuilder);
         }
