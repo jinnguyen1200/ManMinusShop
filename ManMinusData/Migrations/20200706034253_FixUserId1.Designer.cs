@@ -4,14 +4,16 @@ using ManMinusData.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManMinusData.Migrations
 {
     [DbContext(typeof(ManMinusContext))]
-    partial class ManMinusContextModelSnapshot : ModelSnapshot
+    [Migration("20200706034253_FixUserId1")]
+    partial class FixUserId1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +114,7 @@ namespace ManMinusData.Migrations
                     b.Property<DateTime?>("UpdatedOnUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("UserId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -121,7 +123,7 @@ namespace ManMinusData.Migrations
                         .IsUnique()
                         .HasFilter("[CartId] IS NOT NULL");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Order");
                 });
@@ -292,7 +294,7 @@ namespace ManMinusData.Migrations
                         new
                         {
                             Id = new Guid("96d5afdc-18bd-4d01-9ecb-0b8ba81db4e6"),
-                            ConcurrencyStamp = "16ecb6a7-6091-452d-8a76-b755f62c3033",
+                            ConcurrencyStamp = "048c52bb-ccb1-4e9d-8b84-201a5dd2f29a",
                             Description = "Administrator",
                             Name = "Admin",
                             NormalizedName = "Admin"
@@ -372,14 +374,14 @@ namespace ManMinusData.Migrations
                         {
                             Id = new Guid("592fdcb8-75a3-4f4d-afe8-c5c8648b3026"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "110feff6-3f9f-467d-b3a6-a6bb6cf4a205",
+                            ConcurrencyStamp = "e4948460-1331-4581-a0f7-25e35caedbfa",
                             Email = "jinnguyen1200@gmail.com",
                             EmailConfirmed = false,
                             FullName = "Administrator",
                             LockoutEnabled = false,
                             NormalizedEmail = "jinnguyen1200@gmail.com",
                             NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEAXBAx7aWQFW0MX0co3bzn9rBW5If7PoUjh7s+M5McS9t8e1GrXk64tDFjOGjYoKQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGOIqaAP/GudPhQpmhaAzV4dGdLZJR2Em7zUQV2Lys+r06O3H6jL4Mp1FvIajk2ncw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -512,7 +514,7 @@ namespace ManMinusData.Migrations
 
                     b.HasOne("ManMinusData.Entities.Business.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
