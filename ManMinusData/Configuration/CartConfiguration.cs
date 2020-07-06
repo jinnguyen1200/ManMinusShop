@@ -13,6 +13,8 @@ namespace ManMinusData.Configuration
         {
             builder.ToTable(nameof(Cart));
             builder.HasKey(x => x.Id);
+
+            builder.HasOne(x => x.User).WithMany(x => x.Carts).HasForeignKey(x => x.UserId);
         }
     }
 }
