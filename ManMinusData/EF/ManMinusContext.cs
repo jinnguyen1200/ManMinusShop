@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using ManMinusData.Configuration;
 using ManMinusData.Entities.Business;
+using ManMinusData.Extensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ManMinusData.EF
 {
-    public class ManMinusContext : DbContext
+    public class ManMinusContext : IdentityDbContext<User, Role, Guid>
     {
         public ManMinusContext(DbContextOptions options) : base(options)
         {
@@ -15,6 +18,7 @@ namespace ManMinusData.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Configure using Fluent API
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
@@ -23,7 +27,21 @@ namespace ManMinusData.EF
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
 
-            base.OnModelCreating(modelBuilder);
+            //Identity
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new {x.UserId, x.RoleId});
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins").HasKey(x => x.UserId);
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens").HasKey(x => x.UserId);
+
+
+            //Data Seeding
+            modelBuilder.Seed();
+
+            //base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Category> Categories { get; set; }
