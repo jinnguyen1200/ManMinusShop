@@ -11,7 +11,7 @@ namespace ManMinusData.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Users");
         }
     }
 }
